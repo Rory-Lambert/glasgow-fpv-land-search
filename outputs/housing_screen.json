@@ -1,0 +1,140 @@
+{
+"1560": {
+"n_homes": 117,
+"nearest_home_m": 0.1,
+"radius_m": 219
+},
+"1673": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"2331": {
+"n_homes": 56,
+"nearest_home_m": 37.7,
+"radius_m": 228
+},
+"2545": {
+"n_homes": 3,
+"nearest_home_m": 17.9,
+"radius_m": 221
+},
+"2744": {
+"n_homes": 2,
+"nearest_home_m": 167.3,
+"radius_m": 233
+},
+"2829": {
+"n_homes": 60,
+"nearest_home_m": 47.2,
+"radius_m": 226
+},
+"2883": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 234
+},
+"2914": {
+"n_homes": 8,
+"nearest_home_m": 117.6,
+"radius_m": 239
+},
+"2948": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 221
+},
+"306": {
+"n_homes": 35,
+"nearest_home_m": 123.9,
+"radius_m": 233
+},
+"309": {
+"n_homes": 108,
+"nearest_home_m": 32.3,
+"radius_m": 219
+},
+"3106": {
+"error": "Overpass unavailable after retries: 429 Client Error: Too Many Requests for url: https://overpass-api.de/api/interpreter"
+},
+"3185": {
+"n_homes": 177,
+"nearest_home_m": 33.1,
+"radius_m": 245
+},
+"3188": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3289": {
+"error": "Overpass unavailable after retries: 429 Client Error: Too Many Requests for url: https://overpass-api.de/api/interpreter"
+},
+"3363": {
+"n_homes": 6,
+"nearest_home_m": 105.2,
+"radius_m": 210
+},
+"3378": {
+"n_homes": 59,
+"nearest_home_m": 5.5,
+"radius_m": 249
+},
+"3495": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 218
+},
+"350723": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3527": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 219
+},
+"3658": {
+"n_homes": 99,
+"nearest_home_m": 5.8,
+"radius_m": 240
+},
+"3789": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3910": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 233
+},
+"3977": {
+"n_homes": 231,
+"nearest_home_m": 0.7,
+"radius_m": 237
+},
+"4045": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 243
+},
+"502": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 223
+},
+"8445387": {
+"n_homes": 51,
+"nearest_home_m": 11.4,
+"radius_m": 230
+},
+"850": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 220
+},
+"NL008491903": {
+"n_homes": 142,
+"nearest_home_m": 7.9,
+"radius_m": 238
+},
+"NL008491906": {
+"n_homes": 104,
+"nearest_home_m": 1.3,
+"radius_m": 217
+}
+}

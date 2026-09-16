@@ -55,7 +55,9 @@ Craufurdland Castle. After adding members, refresh the issues with
 
 ### Housing proximity (CAA/BMFA separation)
 
-Each issue includes a **housing screen**: real building footprints from
+**Sites with a home within 50 m of the (approximate) edge are omitted from the
+shortlist entirely** — a hard filter, listed in `outputs/excluded_by_housing.csv`.
+The screen also appears on each issue: real building footprints from
 OpenStreetMap, the nearest home to the site, and an annotated map showing the
 site's approximate extent and a separation line. Two honest limits:
 
@@ -85,6 +87,7 @@ everything in `outputs/`.
 | `analysis/fetch_satellite.py` | Downloads & annotates a satellite view per shortlisted site. Needs `requests` + `Pillow` (`pip install -r requirements.txt`). |
 | `analysis/members.py` | Member-travel report for a site (geocoding + driving times). Needs `requests`. |
 | `analysis/site_proximity.py` | Housing-proximity screen + annotated map (OpenStreetMap buildings). Needs `requests` + `Pillow`. |
+| `analysis/housing.py` | Sweeps every candidate for the nearest home, caching to `housing_screen.json` (feeds the hard filter). Needs `requests`. |
 | `analysis/basemap.py` | Shared satellite-tile fetching and lat/lon↔pixel maths. |
 | `analysis/issue_body.py` | Assembles a site issue's full Markdown body (single source of truth). |
 
@@ -103,6 +106,18 @@ python3 analysis/members.py --dump    # geocode members -> member_locations.json
 python3 analysis/find_sites.py        # re-score with the new members
 ./scripts/backfill_issues.sh          # update the open issues' scores + travel
 ```
+
+The housing hard-filter reads `outputs/housing_screen.json`, built once by a
+sweep over all candidates (cached, so re-runs are cheap):
+
+```bash
+python3 analysis/housing.py --build   # screen every candidate for nearby homes
+python3 analysis/find_sites.py        # re-rank, omitting homes-within-50m sites
+```
+
+To use a different separation (e.g. the 150 m A3 figure), change `HOUSING_GAP_M`
+at the top of `find_sites.py` and re-run it — no re-sweep needed (distances are
+cached out to ~175 m).
 
 ## Caveats
 

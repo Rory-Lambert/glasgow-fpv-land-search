@@ -51,16 +51,21 @@ else from current data.
 
 ```bash
 python3 analysis/members.py --dump      # geocode members -> member_locations.json
+python3 analysis/housing.py --build      # screen candidates for nearby homes (cached)
 python3 analysis/find_sites.py          # regenerates everything in outputs/
 python3 analysis/fetch_satellite.py     # rebuilds the 7 shortlist images
 ```
 
-`find_sites.py` needs only Python 3; it reads `outputs/member_locations.json` for
-the member-proximity score, so run `members.py --dump` first whenever
-`data/members.md` changed (skip it and proximity is just 0). The `members.py` and
-satellite scripts need `requests` (+ `Pillow`) — `pip install -r requirements.txt`.
-Re-scope the search by editing the config block at the top of `find_sites.py`
-(region, size band, scoring weights including `PROXIMITY_BANDS`), then re-run.
+`find_sites.py` needs only Python 3; it reads two generated inputs:
+`outputs/member_locations.json` (member-proximity score) and
+`outputs/housing_screen.json` (the **hard filter** that omits any site with a home
+within `HOUSING_GAP_M` — default 50 m). Run `members.py --dump` after editing
+`data/members.md`, and `housing.py --build` to screen sites (it only queries sites
+not already cached, so it's cheap after the first sweep; distances are stored out
+to ~175 m so you can raise `HOUSING_GAP_M` to 150 and just re-run `find_sites.py`).
+The `members.py`, `housing.py` and satellite scripts need `requests` (+ `Pillow`) —
+`pip install -r requirements.txt`. Re-scope by editing the config block at the top
+of `find_sites.py`, then re-run.
 
 ## Conventions
 

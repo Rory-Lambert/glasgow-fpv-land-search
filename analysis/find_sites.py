@@ -46,6 +46,12 @@ REGION = {
 OWNER = "Local Authority"     # the club wants land it can appeal to the council for
 SIZE_MIN, SIZE_MAX = 0.4, 3.0  # hectares; a football pitch is ~0.7 ha
 
+# Housing separation — HARD FILTER. Any site with a home within this many metres
+# of its (approximate) edge is omitted from the ranked shortlist. Distances come
+# from outputs/housing_screen.json (built by `analysis/housing.py --build`).
+# 50 m is the figure the club was told; the standard A3 distance is 150 m.
+HOUSING_GAP_M = 50
+
 # Member proximity — a site everyone can actually reach scores higher.
 # Scored on the mean straight-line distance from members (from
 # outputs/member_locations.json, written by `analysis/members.py --dump`).
@@ -120,6 +126,26 @@ def load_member_locations():
         return []
 
 
+def load_housing_screen():
+    try:
+        with open(os.path.join(OUT, "housing_screen.json")) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def housing_status(screen_entry):
+    """Return (nearest_home_m_str, status) where status is 'ok'|'violation'|'unscreened'."""
+    if not screen_entry or "error" in screen_entry:
+        return "", "unscreened"
+    d = screen_entry.get("nearest_home_m")
+    if d is None:
+        return "", "ok"                 # no home within the searched radius
+    if d < HOUSING_GAP_M:
+        return d, "violation"
+    return d, "ok"
+
+
 def proximity_score(mean_km):
     if mean_km is None:
         return 0
@@ -131,6 +157,7 @@ def proximity_score(mean_km):
 
 def main():
     members = load_member_locations()
+    screen = load_housing_screen()
 
     with open(DATA, newline="") as f:
         rows = list(csv.DictReader(f))
@@ -169,10 +196,14 @@ def main():
             + prox
         )
 
+        nearest_home, housing = housing_status(screen.get(r["site_code"]))
+
         sites.append({
             "score": score,
             "proximity_score": prox,
             "mean_member_km": mean_member_km if mean_member_km is not None else "",
+            "nearest_home_m": nearest_home,
+            "housing_status": housing,   # ok | violation | unscreened
             "site_code": r["site_code"],
             "site_name": r["site_name"].strip(),
             "council": r["local_authority"],
@@ -205,27 +236,42 @@ def main():
         w.writeheader()
         w.writerows(sites)
 
-    # 2) A ready-to-paste Markdown table of the top sites (FRZ sites excluded)
-    clear = [s for s in sites if not s["in_airport_frz"]]
+    # 2) Ranked shortlist — HARD-FILTER out airport FRZ and housing violations.
+    #    Housing 'unscreened' sites are kept but flagged (run housing.py --build).
+    violations = [s for s in sites if s["housing_status"] == "violation"]
+    clear = [s for s in sites
+             if not s["in_airport_frz"] and s["housing_status"] != "violation"]
     with open(os.path.join(OUT, "ranked_table.md"), "w") as f:
-        f.write("| Rank | Score | Site | Council | Size (ha) | Type | Dev. potential | Former use | Avg member km | Map |\n")
-        f.write("|---|---|---|---|---|---|---|---|---|---|\n")
+        f.write(f"*Excludes airport FRZ sites and any with a home within "
+                f"{HOUSING_GAP_M} m (omitted: {len(violations)} on housing).*\n\n")
+        f.write("| Rank | Score | Site | Council | Size (ha) | Type | Dev. potential | Former use | Avg member km | Nearest home | Map |\n")
+        f.write("|---|---|---|---|---|---|---|---|---|---|---|\n")
         for i, s in enumerate(clear[:30], 1):
             name = s["site_name"] or s["address"][:40] or "(unnamed)"
+            home = f"{s['nearest_home_m']} m" if s["nearest_home_m"] != "" else (
+                "none <175 m" if s["housing_status"] == "ok" else "not screened")
             f.write(
                 f"| {i} | {s['score']:+d} | {name} | {s['council']} | {s['size_ha']} "
                 f"| {s['site_type']} | {s['development_potential']} | {s['previous_use']} "
-                f"| {s['mean_member_km']} | [map]({s['map_url']}) |\n"
+                f"| {s['mean_member_km']} | {home} | [map]({s['map_url']}) |\n"
             )
 
-    print(f"Scored {len(sites)} council-owned sites in region "
-          f"({len(clear)} clear of airport FRZ).")
-    if members:
-        print(f"Member proximity included for {len(members)} member(s).")
-    else:
-        print("No member_locations.json — run `python3 analysis/members.py --dump` "
-              "to include member proximity in the score.")
-    print(f"Wrote {OUT}/all_scored_sites.csv and {OUT}/ranked_table.md")
+    # 3) The sites omitted on housing, for transparency.
+    with open(os.path.join(OUT, "excluded_by_housing.csv"), "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=cols)
+        w.writeheader()
+        w.writerows(violations)
+
+    unscreened = sum(1 for s in sites if s["housing_status"] == "unscreened")
+    print(f"Scored {len(sites)} council-owned sites in region.")
+    print(f"Shortlist: {len(clear)} (excluded {len(violations)} on housing <{HOUSING_GAP_M} m, "
+          f"plus airport FRZ).")
+    if unscreened:
+        print(f"  {unscreened} sites not yet housing-screened — run "
+              f"`python3 analysis/housing.py --build`.")
+    if not members:
+        print("No member_locations.json — run `python3 analysis/members.py --dump` first.")
+    print(f"Wrote all_scored_sites.csv, ranked_table.md, excluded_by_housing.csv")
 
 
 if __name__ == "__main__":
