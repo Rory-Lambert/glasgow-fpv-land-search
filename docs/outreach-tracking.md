@@ -31,10 +31,18 @@ filter by authority — handy when one contact covers several sites.
 
 ## Getting started
 
-The shortlisted sites from [REPORT.md](../REPORT.md) can be seeded as issues
-automatically — see the script in [`scripts/create_issues.sh`](../scripts/create_issues.sh),
-which the repo owner can run once after the repo is created. After that, just add a
-new issue whenever we decide to pursue another site.
+The original shortlist from [REPORT.md](../REPORT.md) was seeded by
+[`scripts/create_issues.sh`](../scripts/create_issues.sh) (run once).
+
+To pursue **another** site, elevate it with one command — this generates its
+satellite view and opens the issue for you:
+
+```bash
+./scripts/elevate_site.sh <SVDLS_site_code>
+```
+
+Find the `site_code` in [`outputs/all_scored_sites.csv`](all_scored_sites.csv).
+See [AGENTS.md](../AGENTS.md) for details.
 
 ## Why not a spreadsheet?
 

@@ -5,12 +5,20 @@ Stitches free Esri World Imagery map tiles (no API key required) into one image
 per site, centred on the site centroid, with a crosshair marker, a scale bar and
 a caption. Saves to ../outputs/satellite/.
 
-Run:  python3 analysis/fetch_satellite.py        (from the repo root)
+Usage:
+  python3 analysis/fetch_satellite.py                 # (re)build the 7 shortlist images
+  python3 analysis/fetch_satellite.py --code <CODE>   # build ONE image for a site by
+                                                      # its SVDLS site_code, looked up in
+                                                      # outputs/all_scored_sites.csv.
+                                                      # Prints the saved path (used by
+                                                      # scripts/elevate_site.sh).
 
 Imagery © Esri, Maxar, Earthstar Geographics and the GIS User Community.
 Used here under Esri's terms for non-commercial display with attribution.
 """
 
+import argparse
+import csv
 import io
 import math
 import os
@@ -21,6 +29,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "outputs", "satellite")
+SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 
 TILE_URL = ("https://server.arcgisonline.com/ArcGIS/rest/services/"
             "World_Imagery/MapServer/tile/{z}/{y}/{x}")
@@ -116,18 +125,50 @@ def build_image(name, lat, lon):
     return canvas
 
 
-def slug(label, name):
+def _nameslug(name):
     s = name.lower().split(",")[0].replace(" ", "-")
-    s = "".join(c for c in s if c.isalnum() or c == "-")
-    return f"{int(label):02d}_{s}"
+    return "".join(c for c in s if c.isalnum() or c == "-")
+
+
+def slug(label, name):
+    return f"{int(label):02d}_{_nameslug(name)}"
+
+
+def lookup_by_code(code):
+    """Return (name, lat, lon) for a site_code from all_scored_sites.csv."""
+    with open(SCORED, newline="") as f:
+        for r in csv.DictReader(f):
+            if r["site_code"] == code:
+                name = r["site_name"].strip() or r["address"].strip() or code
+                if not r["lat"] or not r["lon"]:
+                    raise SystemExit(f"Site {code} has no coordinates in the survey.")
+                return name, float(r["lat"]), float(r["lon"])
+    raise SystemExit(f"Site code {code!r} not found in {os.path.relpath(SCORED)}. "
+                     "Run analysis/find_sites.py first, or check the code.")
+
+
+def render(label, name, lat, lon, filename):
+    os.makedirs(OUT, exist_ok=True)
+    img = build_image(f"{label}  {name}", lat, lon)
+    path = os.path.join(OUT, filename)
+    img.save(path, "JPEG", quality=85)
+    return path
 
 
 def main():
-    os.makedirs(OUT, exist_ok=True)
+    ap = argparse.ArgumentParser(description="Fetch annotated satellite views of sites.")
+    ap.add_argument("--code", help="SVDLS site_code — render just this one site.")
+    args = ap.parse_args()
+
+    if args.code:
+        name, lat, lon = lookup_by_code(args.code)
+        path = render(args.code, name, lat, lon, f"{args.code}_{_nameslug(name)}.jpg")
+        # Print ONLY the repo-relative path on the last line, for scripts to capture.
+        print(os.path.relpath(path, os.path.join(HERE, "..")))
+        return
+
     for label, name, lat, lon in SITES:
-        img = build_image(f"{label}  {name}", lat, lon)
-        path = os.path.join(OUT, slug(label, name) + ".jpg")
-        img.save(path, "JPEG", quality=85)
+        path = render(label, name, lat, lon, slug(label, name) + ".jpg")
         print(f"  saved {os.path.relpath(path, os.path.join(HERE, '..'))}")
     print(f"Done — {len(SITES)} images in outputs/satellite/")
 
