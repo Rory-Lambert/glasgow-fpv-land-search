@@ -16,7 +16,8 @@ from datetime import date
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 SCREEN = os.path.join(HERE, "..", "outputs", "housing_screen.json")
-OUT = os.path.join(HERE, "..", "explorer.html")
+OUT = os.path.join(HERE, "..", "explorer.html")            # standalone document (shareable)
+FRAGMENT = os.path.join(HERE, "..", "explorer_artifact.html")  # fragment for the Artifact tool
 
 HOUSING_GAP_M = 50
 
@@ -97,7 +98,8 @@ TEMPLATE = r"""<title>Drone Site Explorer</title>
   --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
-body{background:var(--ground);color:var(--ink);
+[hidden]{display:none!important}
+body{margin:0;background:var(--ground);color:var(--ink);
   font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;line-height:1.45;}
 .wrap{max-width:1240px;margin:0 auto;padding:clamp(16px,3vw,34px);}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
@@ -333,16 +335,29 @@ render();
 
 def main():
     rows = load_rows()
-    html = (TEMPLATE
-            .replace("__DATA__", json.dumps(rows, separators=(",", ":")))
-            .replace("__GAP__", str(HOUSING_GAP_M))
-            .replace("__TOTAL__", str(len(rows)))
-            .replace("__DATE__", date.today().isoformat()))
+    fragment = (TEMPLATE
+                .replace("__DATA__", json.dumps(rows, separators=(",", ":")))
+                .replace("__GAP__", str(HOUSING_GAP_M))
+                .replace("__TOTAL__", str(len(rows)))
+                .replace("__DATE__", date.today().isoformat()))
+
+    # Split the fragment into head-ish (title/fonts/style) and body (content/script)
+    # so the standalone document is well-formed.
+    cut = fragment.index('<div class="wrap">')
+    head, body = fragment[:cut], fragment[cut:]
+    standalone = ('<!doctype html>\n<html lang="en">\n<head>\n'
+                  '<meta charset="utf-8">\n'
+                  '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+                  + head + '</head>\n<body>\n' + body + '\n</body>\n</html>\n')
+
     with open(OUT, "w") as f:
-        f.write(html)
+        f.write(standalone)
+    with open(FRAGMENT, "w") as f:
+        f.write(fragment)
+
     screened = sum(1 for r in rows if r["status"] != "pending")
-    print(f"Wrote {os.path.relpath(OUT)} — {len(rows)} sites "
-          f"({screened} housing-screened).")
+    print(f"Wrote {os.path.relpath(OUT)} (standalone) and "
+          f"{os.path.relpath(FRAGMENT)} — {len(rows)} sites, {screened} housing-screened.")
 
 
 if __name__ == "__main__":
