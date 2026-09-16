@@ -29,6 +29,14 @@ def num(x):
         return None
 
 
+def coord(x):
+    """Full-precision coordinate — never round these (satellite/map alignment)."""
+    try:
+        return round(float(x), 6)
+    except (TypeError, ValueError):
+        return None
+
+
 def load_rows():
     screen = {}
     if os.path.exists(SCREEN):
@@ -62,8 +70,8 @@ def load_rows():
                 "status": status,
                 "frz": r["in_airport_frz"] == "True",
                 "centre_km": num(r["km_from_glasgow_centre"]),
-                "lat": num(r["lat"]),
-                "lon": num(r["lon"]),
+                "lat": coord(r["lat"]),
+                "lon": coord(r["lon"]),
                 "code": code,
                 "map": r["map_url"],
             })
