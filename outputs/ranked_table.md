@@ -1,0 +1,32 @@
+| Rank | Score | Site | Council | Size (ha) | Type | Dev. potential | Former use | km to centre | Map |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | +11 | FORMER BLAES PITCH | South Lanarkshire | 1.25 | Vacant Land | Developable - Undetermined | Recreation & Leisure | 7.7 | [map](https://www.google.com/maps/search/?api=1&query=55.820998,-4.151503) |
+| 2 | +11 | EAST OF LOCHGOIN AVENUE. | Glasgow City | 1.07 | Vacant Land | Developable - Undetermined | Passive Open Space | 9.9 | [map](https://www.google.com/maps/search/?api=1&query=55.917933,-4.372224) |
+| 3 | +11 | FORMER RECREATION GROUND (NLMK1265) | North Lanarkshire | 1.63 | Vacant Land | Developable - Undetermined | Recreation & Leisure | 16.1 | [map](https://www.google.com/maps/search/?api=1&query=55.883586,-4.002923) |
+| 4 | +11 | WHEATHOLME PARK NORTH (FORMER HOUSING SITE NLMK122 | North Lanarkshire | 0.73 | Vacant Land | Developable - Undetermined | Recreation & Leisure | 17.9 | [map](https://www.google.com/maps/search/?api=1&query=55.874173,-3.970852) |
+| 5 | +10 | REAR OF 42-78 GARDENSIDE CRESCENT. | Glasgow City | 0.78 | Vacant Land | Developable - Undetermined | Agriculture | 6.7 | [map](https://www.google.com/maps/search/?api=1&query=55.827945,-4.161786) |
+| 6 | +10 | NORTHERN SITE | West Dunbartonshire | 1.98 | Vacant Land | Developable - Undetermined | Agriculture | 25.2 | [map](https://www.google.com/maps/search/?api=1&query=55.996137,-4.574884) |
+| 7 | +9 | SOUTH OF 195 FIRPARK STREET. | Glasgow City | 1.16 | Vacant Land | Developable - Undetermined | Residential - Housing | 1.8 | [map](https://www.google.com/maps/search/?api=1&query=55.863056,-4.228413) |
+| 8 | +9 | WELLFIELD STREET CROFTBANK STREET EDGEFA | Glasgow City | 0.95 | Vacant Land | Developable - Undetermined | Residential - Housing | 3.5 | [map](https://www.google.com/maps/search/?api=1&query=55.882764,-4.223003) |
+| 9 | +9 | CRAIGENDMUIR STREET | Glasgow City | 0.87 | Vacant Land | Developable - Undetermined | Residential - Housing | 4.1 | [map](https://www.google.com/maps/search/?api=1&query=55.873940,-4.197368) |
+| 10 | +9 | WEST OF 1159 ROYSTON ROAD/ EAST OF M.80 | Glasgow City | 1.39 | Vacant Land | Developable - Undetermined | Residential - Housing | 4.4 | [map](https://www.google.com/maps/search/?api=1&query=55.879150,-4.196016) |
+| 11 | +9 | LIDDLESDALE ROAD SCALPAY STREET/ LIDDLES | Glasgow City | 2.0 | Vacant Land | Developable - Undetermined | Residential - Housing | 4.4 | [map](https://www.google.com/maps/search/?api=1&query=55.896559,-4.248760) |
+| 12 | +9 | ST AMBROSE'S P.S | Glasgow City | 1.56 | Vacant Land | Developable - Undetermined | Education | 4.7 | [map](https://www.google.com/maps/search/?api=1&query=55.899079,-4.239213) |
+| 13 | +9 | RUGBY PITCH | Glasgow City | 1.38 | Vacant Land | Developable - Medium Term | Recreation & Leisure | 6.0 | [map](https://www.google.com/maps/search/?api=1&query=55.883656,-4.172062) |
+| 14 | +9 | ST MARGARET MARY | Glasgow City | 1.88 | Vacant Land | Developable - Undetermined | Education | 6.5 | [map](https://www.google.com/maps/search/?api=1&query=55.799212,-4.245058) |
+| 15 | +9 | 183-187 GLENLORA DRIVE | Glasgow City | 0.9 | Vacant Land | Developable - Undetermined | Residential - Housing | 7.8 | [map](https://www.google.com/maps/search/?api=1&query=55.819322,-4.359927) |
+| 16 | +9 | 4-8 BUCHLYVIE STREET. | Glasgow City | 1.68 | Vacant Land | Developable - Undetermined | Residential - Housing | 8.9 | [map](https://www.google.com/maps/search/?api=1&query=55.863914,-4.114593) |
+| 17 | +9 | DRUMMORE RD SUMMERHILL RD SADDELL RD | Glasgow City | 1.2 | Vacant Land | Developable - Undetermined | Residential - Housing | 9.2 | [map](https://www.google.com/maps/search/?api=1&query=55.917147,-4.357900) |
+| 18 | +9 | SUMMERHILL P.S. | Glasgow City | 1.71 | Vacant Land | Developable - Undetermined | Education | 9.4 | [map](https://www.google.com/maps/search/?api=1&query=55.917721,-4.360320) |
+| 19 | +9 | DUNPHAIL ROAD/ ABBEYCRAIG ROAD. | Glasgow City | 0.99 | Vacant Land | Developable - Undetermined | Residential - Housing | 10.1 | [map](https://www.google.com/maps/search/?api=1&query=55.868395,-4.095945) |
+| 20 | +9 | FORGEWOOD REGEN AREA 3 | North Lanarkshire | 1.14 | Vacant Land | Developable - Undetermined | Residential - Housing | 17.2 | [map](https://www.google.com/maps/search/?api=1&query=55.801918,-4.000370) |
+| 21 | +9 | SOUTH OF LANE | West Dunbartonshire | 0.75 | Vacant Land | Developable - Undetermined | Residential - Housing | 24.0 | [map](https://www.google.com/maps/search/?api=1&query=55.978348,-4.574102) |
+| 22 | +9 | FORMER RECREATION GROUND (HOUSING SITE NLMW1250) | North Lanarkshire | 1.61 | Vacant Land | Developable - Medium Term | Recreation & Leisure | 24.9 | [map](https://www.google.com/maps/search/?api=1&query=55.764588,-3.894799) |
+| 23 | +9 | BALGRAY ROAD LESMAHAGOW | South Lanarkshire | 0.68 | Vacant Land | Developable - Undetermined | Passive Open Space | 34.9 | [map](https://www.google.com/maps/search/?api=1&query=55.626776,-3.878341) |
+| 24 | +9 | MIDFIELD ROAD COALBURN | South Lanarkshire | 0.91 | Vacant Land | Developable - Undetermined | Residential - Housing | 37.9 | [map](https://www.google.com/maps/search/?api=1&query=55.590047,-3.881220) |
+| 25 | +9 | FORMER RESIDENTIAL DEVELOPMENT | East Ayrshire | 1.07 | Vacant Land | Developable - Undetermined | Residential - Housing | 39.3 | [map](https://www.google.com/maps/search/?api=1&query=55.518531,-4.079375) |
+| 26 | +9 | FORMER RESIDENTIAL DEVELOPMENT | East Ayrshire | 1.56 | Vacant Land | Developable - Undetermined | Residential - Housing | 42.7 | [map](https://www.google.com/maps/search/?api=1&query=55.474799,-4.292637) |
+| 27 | +8 | SPRINGBURN ROAD/ PETERSHILL ROAD. | Glasgow City | 0.86 | Vacant Land | Developable - Undetermined | Unknown | 2.6 | [map](https://www.google.com/maps/search/?api=1&query=55.876520,-4.231343) |
+| 28 | +8 | 4-10 STONYHURST STREET. | Glasgow City | 1.4 | Vacant Land | Unknown (uncertain/insufficient information) | Residential - Housing | 2.8 | [map](https://www.google.com/maps/search/?api=1&query=55.881818,-4.245877) |
+| 29 | +8 | GLENCONNER PARK | Glasgow City | 0.5 | Derelict | Uneconomic to Develop/Soft End Use | Recreation & Leisure | 2.9 | [map](https://www.google.com/maps/search/?api=1&query=55.873009,-4.218720) |
+| 30 | +8 | 26-66 LEDAIG STREET | Glasgow City | 0.44 | Vacant Land | Uneconomic to Develop/Soft End Use | Residential - Housing | 3.6 | [map](https://www.google.com/maps/search/?api=1&query=55.859962,-4.198561) |
