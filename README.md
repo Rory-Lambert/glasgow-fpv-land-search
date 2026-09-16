@@ -39,8 +39,19 @@ A good FPV racing site is:
 ## Tracking outreach
 
 We use **GitHub Issues** to track which sites we've approached and where each
-conversation stands — one issue per site. See
+conversation stands — one issue per site. Each issue carries the site's satellite
+view, its **member-travel report** (how far each of us drives to it vs the castle
+now, and the average), and the **Community Asset Transfer** contact for the
+relevant council — the statutory route for a charity to take on council land. See
 **[docs/outreach-tracking.md](docs/outreach-tracking.md)** for how it works.
+
+### Member travel
+
+Add your postcode to **[data/members.md](data/members.md)** (postcode only — no
+names). We geocode it (postcodes.io) and get real driving distance/time (OSRM),
+both free and keyless, comparing every site against the current base at
+Craufurdland Castle. After adding members, refresh the issues with
+`./scripts/backfill_issues.sh`.
 
 ## Reproducing the analysis
 
@@ -58,6 +69,8 @@ everything in `outputs/`.
 | `analysis/find_sites.py` | Filters, scores and ranks the sites. All the tunable knobs (region, size band, scoring weights) are at the top. |
 | `analysis/osgb.py` | Converts the survey's OS grid references to WGS84 lat/long for map links. |
 | `analysis/fetch_satellite.py` | Downloads & annotates a satellite view per shortlisted site. Needs `requests` + `Pillow` (`pip install -r requirements.txt`). |
+| `analysis/members.py` | Member-travel report for a site (geocoding + driving times). Needs `requests`. |
+| `analysis/issue_body.py` | Assembles a site issue's full Markdown body (single source of truth). |
 
 ### How the score works
 

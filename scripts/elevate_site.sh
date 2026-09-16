@@ -18,7 +18,8 @@ if [ -z "$CODE" ]; then
 fi
 cd "$(dirname "$0")/.."
 
-# 1. Pull the site's details from the scored CSV (python does the CSV parsing).
+# 1. Pull the issue title (site name) and council label slug from the scored CSV.
+#    All other details are added by analysis/issue_body.py at step 4.
 eval "$(python3 - "$CODE" <<'PY'
 import csv, sys, shlex
 code = sys.argv[1]
@@ -28,13 +29,8 @@ if not row:
     sys.exit(f"Site code {code} not found in outputs/all_scored_sites.csv "
              "(run analysis/find_sites.py first, or check the code).")
 name = row["site_name"].strip() or row["address"].strip() or code
-def q(k, v): print(f"{k}={shlex.quote(v)}")
-q("NAME", name)
-q("COUNCIL", row["council"])
-q("CSLUG", row["council"].lower().replace(" ", "-"))
-q("SIZE", row["size_ha"]); q("STYPE", row["site_type"])
-q("DEV", row["development_potential"]); q("PREV", row["previous_use"])
-q("SCORE", row["score"]); q("MAP", row["map_url"]); q("FRZ", row["in_airport_frz"])
+print(f"NAME={shlex.quote(name)}")
+print(f"CSLUG={shlex.quote(row['council'].lower().replace(' ', '-'))}")
 PY
 )"
 
@@ -62,26 +58,8 @@ RAW="https://raw.githubusercontent.com/$REPO/$BRANCH/$IMG_REL"
 gh label create "status:shortlisted" --color ededed --force >/dev/null
 gh label create "council:$CSLUG" --color c5def5 --force >/dev/null
 
-FRZ_NOTE=""
-[ "$FRZ" = "True" ] && FRZ_NOTE="
-
-**Warning: inside an airport flight-restriction zone — likely unflyable. Confirm before pursuing.**"
-
-BODY="![Satellite view]($RAW)
-*Red crosshair = site centroid · 100 m scale bar · imagery © Esri/Maxar.*
-
----
-
-**Council:** $COUNCIL · **Size:** $SIZE ha · Score $SCORE
-**SVDLS code:** $CODE
-**Type / potential / former use:** $STYPE · $DEV · $PREV
-**Map:** $MAP$FRZ_NOTE
-
-- [ ] Satellite view checked
-- [ ] Airspace checked in a drone app
-- [ ] First contact made
-- [ ] Site visit"
-
-gh issue create --title "[Site] $NAME" \
-  --label "status:shortlisted" --label "council:$CSLUG" \
-  --body "$BODY"
+# Assemble the issue body (details + council contact + member travel + checklist).
+python3 analysis/issue_body.py --code "$CODE" --image-url "$RAW" \
+  | gh issue create --title "[Site] $NAME" \
+      --label "status:shortlisted" --label "council:$CSLUG" \
+      --body-file -

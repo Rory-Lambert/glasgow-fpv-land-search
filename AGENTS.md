@@ -21,10 +21,29 @@ The ordering matters and is why this is a script, not a checklist: an issue
 embeds its image by **raw GitHub URL**, which only resolves after the image is
 pushed. Creating the issue first gives a broken image. `elevate_site.sh` pushes
 before it references. If you must debug the pieces, they are `analysis/fetch_satellite.py --code <code>`
-(image) and `gh issue create` (issue) — but reach for the script first.
+(image) and `analysis/issue_body.py --code <code>` (body) — but reach for the script first.
+
+`analysis/issue_body.py` is the **single source of truth** for what an issue
+contains: site details, the council's Community Asset Transfer contact (from
+`data/council_contacts.md`), and the member-travel report (from `data/members.md`).
+Edit the body there, not in the bash scripts.
 
 Outreach tracking conventions (status/council labels, closing issues): see
 [docs/outreach-tracking.md](docs/outreach-tracking.md).
+
+## Refreshing issues after data changes
+
+Member travel numbers are baked into each issue body at creation. After editing
+`data/members.md` (or `data/council_contacts.md`), re-run the body for affected
+issues — one issue, or all the originally-seeded ones:
+
+```bash
+./scripts/refresh_issue.sh <issue_number> <site_code>   # one issue
+./scripts/backfill_issues.sh                            # the 7 seeded issues
+```
+
+`refresh_issue.sh` preserves the existing satellite image and rebuilds everything
+else from current data.
 
 ## Re-running the analysis
 
