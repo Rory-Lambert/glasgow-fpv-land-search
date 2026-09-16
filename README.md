@@ -74,9 +74,19 @@ everything in `outputs/`.
 
 ### How the score works
 
-Each site gets a score from four factors — site type, the council's development
-intentions, the previous use, and size. The exact weights live at the top of
+Each site gets a score from five factors — site type, the council's development
+intentions, the previous use, size, and **member proximity** (up to +4 for being
+close to members' postcodes). The exact weights live at the top of
 `analysis/find_sites.py`; edit them and re-run to re-rank. Higher is better.
+
+Proximity is read from `outputs/member_locations.json`. After editing
+`data/members.md`, regenerate it and re-score:
+
+```bash
+python3 analysis/members.py --dump    # geocode members -> member_locations.json
+python3 analysis/find_sites.py        # re-score with the new members
+./scripts/backfill_issues.sh          # update the open issues' scores + travel
+```
 
 ## Caveats
 

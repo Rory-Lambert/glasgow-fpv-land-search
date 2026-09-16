@@ -9,6 +9,8 @@ whether a site is actually closer for people.
 Usage:
   python3 analysis/members.py --code <SVDLS_site_code>   # report for one site
   python3 analysis/members.py --lat <lat> --lon <lon>    # report for a coordinate
+  python3 analysis/members.py --dump                     # geocode members -> JSON
+                                                         # (feeds the scorer)
 
 Prints a Markdown travel report (the block embedded in each site issue).
 """
@@ -27,6 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 MEMBERS_MD = os.path.join(HERE, "..", "data", "members.md")
 SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 CACHE = os.path.join(HERE, "..", "outputs", ".geocode_cache.json")
+LOCATIONS = os.path.join(HERE, "..", "outputs", "member_locations.json")
 
 # The club's current home — Craufurdland Castle, near Fenwick (East Ayrshire).
 CASTLE_POSTCODE = "KA3 6BS"
@@ -173,12 +176,36 @@ def build_report(site):
     return "\n".join(lines)
 
 
+def dump_locations():
+    """Geocode all members + the castle to outputs/member_locations.json.
+
+    The scorer (analysis/find_sites.py) reads this so it stays fast and offline —
+    re-run this whenever data/members.md changes.
+    """
+    cache = load_cache()
+    data = {
+        "castle": {"postcode": CASTLE_POSTCODE, "latlon": list(geocode(CASTLE_POSTCODE, cache))},
+        "members": [{"id": mid, "postcode": pc, "latlon": list(geocode(pc, cache))}
+                    for mid, pc in load_members()],
+    }
+    with open(LOCATIONS, "w") as f:
+        json.dump(data, f, indent=2)
+    print(f"Wrote {len(data['members'])} member locations to "
+          f"{os.path.relpath(LOCATIONS, os.path.join(HERE, '..'))}")
+
+
 def main():
     ap = argparse.ArgumentParser(description="Member travel report for a site.")
     ap.add_argument("--code", help="SVDLS site_code (coords looked up in the scored CSV).")
     ap.add_argument("--lat", type=float)
     ap.add_argument("--lon", type=float)
+    ap.add_argument("--dump", action="store_true",
+                    help="Geocode members to outputs/member_locations.json (for the scorer).")
     args = ap.parse_args()
+
+    if args.dump:
+        dump_locations()
+        return
 
     if args.code:
         site = site_from_code(args.code)

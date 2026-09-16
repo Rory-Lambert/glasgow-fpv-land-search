@@ -7,16 +7,22 @@ Pipeline
 1. Filter the national dataset to council-owned land in the Glasgow travel-to-work
    area, roughly football-pitch sized.
 2. Score each site on how well it suits an FPV racing course (open ground, low
-   development pressure, flat/uncontaminated former use, sensible size).
+   development pressure, flat/uncontaminated former use, sensible size) AND how
+   close it is to the club's members.
 3. Flag proximity to airport flight-restriction zones (FRZ).
 4. Write ranked outputs to ../outputs/ (CSV + a Markdown table).
 
 Run:  python3 analysis/find_sites.py     (from the repo root)
 
+Member proximity is read from outputs/member_locations.json — regenerate it with
+`python3 analysis/members.py --dump` after editing data/members.md, then re-run
+this. If that file is absent the proximity component is simply 0.
+
 Pure standard library — no dependencies to install.
 """
 
 import csv
+import json
 import math
 import os
 
@@ -39,6 +45,12 @@ REGION = {
 
 OWNER = "Local Authority"     # the club wants land it can appeal to the council for
 SIZE_MIN, SIZE_MAX = 0.4, 3.0  # hectares; a football pitch is ~0.7 ha
+
+# Member proximity — a site everyone can actually reach scores higher.
+# Scored on the mean straight-line distance from members (from
+# outputs/member_locations.json, written by `analysis/members.py --dump`).
+# Road distance/time is ~1.3-1.5x this and is shown per-member in each issue.
+PROXIMITY_BANDS = [(8, 4), (15, 3), (25, 2), (40, 1)]  # (max mean km, points); else 0
 
 # Reference points in OSGB36 easting/northing for distance flags
 GLASGOW_CENTRE = (258906, 665004)   # George Square
@@ -91,7 +103,35 @@ def km(e, n, ref):
     return math.hypot(e - ref[0], n - ref[1]) / 1000.0
 
 
+def haversine_km(a, b):
+    R = 6371.0
+    dlat = math.radians(b[0] - a[0])
+    dlon = math.radians(b[1] - a[1])
+    x = (math.sin(dlat / 2) ** 2
+         + math.cos(math.radians(a[0])) * math.cos(math.radians(b[0])) * math.sin(dlon / 2) ** 2)
+    return R * 2 * math.asin(math.sqrt(x))
+
+
+def load_member_locations():
+    try:
+        with open(os.path.join(OUT, "member_locations.json")) as f:
+            return [tuple(m["latlon"]) for m in json.load(f)["members"]]
+    except (FileNotFoundError, KeyError, json.JSONDecodeError):
+        return []
+
+
+def proximity_score(mean_km):
+    if mean_km is None:
+        return 0
+    for max_km, pts in PROXIMITY_BANDS:
+        if mean_km <= max_km:
+            return pts
+    return 0
+
+
 def main():
+    members = load_member_locations()
+
     with open(DATA, newline="") as f:
         rows = list(csv.DictReader(f))
 
@@ -115,15 +155,24 @@ def main():
             d_cum = round(km(e, n, CUMBERNAULD_AIRPORT), 1)
             in_frz = d_gla < FRZ_KM or d_cum < FRZ_KM
 
+        mean_member_km = None
+        if members and lat is not None:
+            mean_member_km = round(
+                sum(haversine_km((lat, lon), m) for m in members) / len(members), 1)
+        prox = proximity_score(mean_member_km)
+
         score = (
             TYPE_SCORE.get(r["site_type"], 0)
             + DEV_SCORE.get(r["development_potential"], 0)
             + PREV_SCORE.get(r["previous_use"], 0)
             + size_score(size)
+            + prox
         )
 
         sites.append({
             "score": score,
+            "proximity_score": prox,
+            "mean_member_km": mean_member_km if mean_member_km is not None else "",
             "site_code": r["site_code"],
             "site_name": r["site_name"].strip(),
             "council": r["local_authority"],
@@ -159,18 +208,23 @@ def main():
     # 2) A ready-to-paste Markdown table of the top sites (FRZ sites excluded)
     clear = [s for s in sites if not s["in_airport_frz"]]
     with open(os.path.join(OUT, "ranked_table.md"), "w") as f:
-        f.write("| Rank | Score | Site | Council | Size (ha) | Type | Dev. potential | Former use | km to centre | Map |\n")
+        f.write("| Rank | Score | Site | Council | Size (ha) | Type | Dev. potential | Former use | Avg member km | Map |\n")
         f.write("|---|---|---|---|---|---|---|---|---|---|\n")
         for i, s in enumerate(clear[:30], 1):
             name = s["site_name"] or s["address"][:40] or "(unnamed)"
             f.write(
                 f"| {i} | {s['score']:+d} | {name} | {s['council']} | {s['size_ha']} "
                 f"| {s['site_type']} | {s['development_potential']} | {s['previous_use']} "
-                f"| {s['km_from_glasgow_centre']} | [map]({s['map_url']}) |\n"
+                f"| {s['mean_member_km']} | [map]({s['map_url']}) |\n"
             )
 
     print(f"Scored {len(sites)} council-owned sites in region "
           f"({len(clear)} clear of airport FRZ).")
+    if members:
+        print(f"Member proximity included for {len(members)} member(s).")
+    else:
+        print("No member_locations.json — run `python3 analysis/members.py --dump` "
+              "to include member proximity in the score.")
     print(f"Wrote {OUT}/all_scored_sites.csv and {OUT}/ranked_table.md")
 
 

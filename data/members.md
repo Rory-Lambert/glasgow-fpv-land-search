@@ -12,3 +12,4 @@ shareable without exposing anyone's home.
 | Member | Postcode |
 |--------|----------|
 | 1      | G31      |
+| 2      | G73      |

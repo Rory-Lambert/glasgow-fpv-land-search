@@ -48,14 +48,17 @@ else from current data.
 ## Re-running the analysis
 
 ```bash
+python3 analysis/members.py --dump      # geocode members -> member_locations.json
 python3 analysis/find_sites.py          # regenerates everything in outputs/
 python3 analysis/fetch_satellite.py     # rebuilds the 7 shortlist images
 ```
 
-`find_sites.py` needs only Python 3. The satellite scripts need `requests` +
-`Pillow` (`pip install -r requirements.txt`). Re-scope the search by editing the
-config block at the top of `find_sites.py` (region, size band, scoring weights),
-then re-run.
+`find_sites.py` needs only Python 3; it reads `outputs/member_locations.json` for
+the member-proximity score, so run `members.py --dump` first whenever
+`data/members.md` changed (skip it and proximity is just 0). The `members.py` and
+satellite scripts need `requests` (+ `Pillow`) — `pip install -r requirements.txt`.
+Re-scope the search by editing the config block at the top of `find_sites.py`
+(region, size band, scoring weights including `PROXIMITY_BANDS`), then re-run.
 
 ## Conventions
 
