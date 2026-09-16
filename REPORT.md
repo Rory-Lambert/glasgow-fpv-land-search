@@ -17,6 +17,12 @@ like-for-like with the Craufurdland plot we run now.
 football pitch — exactly the right shape and size — on open recreational land the
 council has no firm plans for, well inside Glasgow and clear of both airport zones.
 
+![Former Blaes Pitch, Cambuslang — satellite view](outputs/satellite/01_former-blaes-pitch.jpg)
+
+*Satellite views of every shortlisted site are in
+[outputs/satellite/](outputs/satellite/) — the red crosshair marks each centroid.
+Imagery © Esri, Maxar, Earthstar Geographics.*
+
 ## Tier 1 — former pitches & recreation grounds (best fit)
 
 ### 1. Former Blaes Pitch, Westburn Road, Cambuslang ⭐

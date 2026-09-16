@@ -1,0 +1,4 @@
+# Only needed for analysis/fetch_satellite.py (the satellite thumbnails).
+# The core pipeline (analysis/find_sites.py) needs nothing beyond Python 3.
+requests
+Pillow

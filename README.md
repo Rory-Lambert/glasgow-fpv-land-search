@@ -34,6 +34,7 @@ A good FPV racing site is:
 - **[REPORT.md](REPORT.md)** — the shortlist of standout sites, with map links, reasoning, and what to avoid. **Start here.**
 - **[outputs/all_scored_sites.csv](outputs/all_scored_sites.csv)** — every council-owned in-region site (289 of them), scored, with lat/long, map links and airport distances.
 - **[outputs/ranked_table.md](outputs/ranked_table.md)** — the full ranked table (FRZ sites excluded).
+- **[outputs/satellite/](outputs/satellite/)** — annotated satellite views of each shortlisted site (crosshair on the centroid, 100 m scale bar).
 
 ## Tracking outreach
 
@@ -56,6 +57,7 @@ everything in `outputs/`.
 |---|---|
 | `analysis/find_sites.py` | Filters, scores and ranks the sites. All the tunable knobs (region, size band, scoring weights) are at the top. |
 | `analysis/osgb.py` | Converts the survey's OS grid references to WGS84 lat/long for map links. |
+| `analysis/fetch_satellite.py` | Downloads & annotates a satellite view per shortlisted site. Needs `requests` + `Pillow` (`pip install -r requirements.txt`). |
 
 ### How the score works
 
