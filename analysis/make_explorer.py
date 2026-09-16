@@ -62,6 +62,8 @@ def load_rows():
                 "status": status,
                 "frz": r["in_airport_frz"] == "True",
                 "centre_km": num(r["km_from_glasgow_centre"]),
+                "lat": num(r["lat"]),
+                "lon": num(r["lon"]),
                 "code": code,
                 "map": r["map_url"],
             })
@@ -167,6 +169,25 @@ tbody tr:hover td{background:var(--surface-3);}
 .pill.frz{background:var(--bad-bg);color:var(--bad);margin-left:5px;}
 .maplink{color:var(--accent);text-decoration:none;font-weight:600;font-size:.8rem;white-space:nowrap;}
 .maplink:hover{text-decoration:underline;}
+tbody tr.data{cursor:pointer;}
+tbody tr.data td:first-child{position:relative;}
+tbody tr.data td:first-child::before{content:"▸";position:absolute;left:2px;color:var(--muted);font-size:.7rem;transition:transform .12s;}
+tbody tr.data.open td:first-child::before{transform:rotate(90deg);color:var(--accent);}
+tbody tr.data .scorecell{margin-left:9px;}
+tr.detail>td{padding:0;border-left:4px solid var(--accent);background:var(--surface-3);}
+.detail-inner{display:flex;flex-wrap:wrap;gap:18px;padding:14px 16px;}
+.sat{position:relative;flex:0 0 auto;width:min(420px,88vw);}
+.sat img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:10px;border:1px solid var(--line);display:block;background:var(--surface-2);}
+.sat .cross{position:absolute;top:calc(50% - 13px);left:50%;width:24px;height:24px;transform:translateX(-50%);pointer-events:none;}
+.sat .cross::before,.sat .cross::after{content:"";position:absolute;background:#ff3b3b;box-shadow:0 0 2px rgba(0,0,0,.6);}
+.sat .cross::before{left:11px;top:0;width:2px;height:100%;}
+.sat .cross::after{top:11px;left:0;height:2px;width:100%;}
+.sat .cap{font-size:.72rem;color:var(--muted);margin-top:6px;}
+.facts{flex:1 1 230px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-content:start;
+  font-size:.87rem;margin:0;}
+.facts dt{color:var(--muted);white-space:nowrap;}
+.facts dd{margin:0;font-weight:500;}
+.facts dd.full{grid-column:1/-1;margin-top:8px;}
 .tag{font-size:.78rem;color:var(--muted);}
 .empty{padding:40px;text-align:center;color:var(--muted);}
 footer{margin:16px 2px 4px;font-size:.76rem;color:var(--muted);}
@@ -183,7 +204,8 @@ footer a{color:var(--accent);}
   </header>
   <p class="sub">Every council-owned vacant/derelict site in the Glasgow area, football-pitch
   sized. Sort and filter to help triage by hand. Housing status flags homes within
-  <b>__GAP__&nbsp;m</b> of the (approximate) site edge &mdash; a BMFA/CAA screen, not a legal boundary.</p>
+  <b>__GAP__&nbsp;m</b> of the (approximate) site edge &mdash; a BMFA/CAA screen, not a legal boundary.
+  <b>Click any row</b> for its satellite view.</p>
 
   <div class="controls">
     <div class="row1">
@@ -251,6 +273,32 @@ function homeCell(r){
   if(r.home_m==null) out = `<span class="pill ok">clear</span>`;
   return out;
 }
+function homeText(r){
+  if(r.status==="pending") return "not yet screened";
+  if(r.home_m==null) return "no home within 175 m";
+  return r.home_m+" m &mdash; "+(r.status==="violation"?"within "+GAP+" m":"clear of "+GAP+" m");
+}
+// Live centred satellite image from Esri World Imagery (no key), ~500 m across.
+function bbox(lat,lon){const h=250,dlat=h/111320,dlon=h/(111320*Math.cos(lat*Math.PI/180));
+  return [lon-dlon,lat-dlat,lon+dlon,lat+dlat].join(",");}
+function satUrl(r){return "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/export?bbox="
+  +bbox(r.lat,r.lon)+"&bboxSR=4326&imageSR=3857&size=480,480&format=jpg&f=image";}
+function detailRow(r){
+  const img=(r.lat!=null&&r.lon!=null)
+    ? `<div class="sat"><img loading="lazy" data-src="${satUrl(r)}" alt="Satellite view of ${esc(r.name)}" onerror="this.closest('.sat').style.display='none'">`
+      +`<div class="cross"></div><div class="cap">Esri satellite &middot; red mark = site centroid</div></div>` : "";
+  return `<tr class="detail" hidden><td colspan="${COLS.length}"><div class="detail-inner">`+img
+    +`<dl class="facts">`
+    +`<dt>Former use</dt><dd>${esc(r.prev)}</dd>`
+    +`<dt>Development</dt><dd>${esc(r.dev)}</dd>`
+    +`<dt>Type</dt><dd>${esc(r.type)}</dd>`
+    +`<dt>Nearest home</dt><dd>${homeText(r)}</dd>`
+    +`<dt>Size</dt><dd>${r.size==null?"&mdash;":r.size+" ha"}</dd>`
+    +`<dt>Avg member</dt><dd>${r.member_km==null?"&mdash;":r.member_km+" km"}</dd>`
+    +`<dt>SVDLS code</dt><dd class="mono">${esc(r.code)}</dd>`
+    +`<dd class="full"><a class="maplink" href="${r.map}" target="_blank" rel="noopener">Open in Google Maps (satellite) &nearr;</a></dd>`
+    +`</dl></div></td></tr>`;
+}
 
 const $=id=>document.getElementById(id);
 function buildHead(){
@@ -297,12 +345,14 @@ function sortRows(rows){
 function render(){
   buildHead();
   const rows=sortRows(filtered());
-  $("body").innerHTML = rows.map(r=>
-    `<tr class="st-${r.status}">`+COLS.map(c=>{
+  $("body").innerHTML = rows.map(r=>{
+    const cells=COLS.map(c=>{
       let v=c.cell(r);
       if(c.k==="name" && r.frz) v+=` <span class="pill frz">FRZ</span>`;
       return `<td class="${c.num?"num":""}">${v}</td>`;
-    }).join("")+`</tr>`).join("");
+    }).join("");
+    return `<tr class="data st-${r.status}">${cells}</tr>`+detailRow(r);
+  }).join("");
   $("empty").hidden = rows.length>0;
   const clear=DATA.filter(r=>r.status==="ok").length;
   const viol=DATA.filter(r=>r.status==="violation").length;
@@ -325,6 +375,15 @@ $("reset").onclick=()=>{
   $("tFrz").closest(".chip").classList.add("on");
   render();
 };
+// Expand a row to its satellite view (image loads lazily on first open).
+$("body").addEventListener("click",e=>{
+  if(e.target.closest("a")) return;
+  const tr=e.target.closest("tr.data"); if(!tr) return;
+  const d=tr.nextElementSibling; if(!d||!d.classList.contains("detail")) return;
+  const opening=d.hidden;
+  d.hidden=!d.hidden; tr.classList.toggle("open",opening);
+  if(opening){const img=d.querySelector("img"); if(img&&!img.src) img.src=img.dataset.src;}
+});
 fillSelect("council",[...new Set(DATA.map(r=>r.council))]);
 fillSelect("use",[...new Set(DATA.map(r=>r.prev))]);
 $("tFrz").closest(".chip").classList.add("on");
