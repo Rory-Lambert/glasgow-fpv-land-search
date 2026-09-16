@@ -15,7 +15,9 @@ import csv
 import os
 import re
 
-import members  # sibling module; provides build_report() and site_from_code()
+import members          # build_report() — member-travel section
+import site_proximity   # assess() — housing-proximity section
+from basemap import raw_base
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
@@ -60,6 +62,23 @@ def build(code, image_url=None):
         details.append("\n**Warning: inside an airport flight-restriction zone — "
                        "likely unflyable. Confirm before pursuing.**")
     parts.append("\n".join(details))
+
+    # Housing-proximity screen (needs OpenStreetMap via Overpass — degrade gracefully).
+    try:
+        res = site_proximity.assess(code, make_image=False)
+        block = res["markdown"]
+        base = raw_base()
+        rel = os.path.relpath(res["image"], os.path.join(HERE, ".."))
+        if base and os.path.exists(res["image"]):
+            block += (f"\n\n![Housing proximity]({base}/{rel})\n"
+                      "*Yellow = approx site extent (from area, not a surveyed boundary) · "
+                      "orange = separation line · red = homes · "
+                      "imagery © Esri, buildings © OpenStreetMap.*")
+        parts.append(block)
+    except Exception as e:  # network/Overpass hiccup shouldn't block issue creation
+        parts.append(f"### Housing proximity (CAA/BMFA separation)\n\n"
+                     f"_Screen unavailable ({e}). Re-run `analysis/site_proximity.py "
+                     f"--code {code}`._")
 
     url, contact = council_contact(r["council"])
     if url:

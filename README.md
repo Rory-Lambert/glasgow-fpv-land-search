@@ -53,6 +53,20 @@ both free and keyless, comparing every site against the current base at
 Craufurdland Castle. After adding members, refresh the issues with
 `./scripts/backfill_issues.sh`.
 
+### Housing proximity (CAA/BMFA separation)
+
+Each issue includes a **housing screen**: real building footprints from
+OpenStreetMap, the nearest home to the site, and an annotated map showing the
+site's approximate extent and a separation line. Two honest limits:
+
+- The survey gives only a **centroid + area**, not a surveyed boundary, so the
+  site extent is approximated as a compact square of that area — a visual aid,
+  not a legal boundary. Verify against a site plan or on the ground.
+- The **required separation is a BMFA/CAA question.** The default is 50 m; the
+  standard Open-category A3 distance from residential areas is 150 m, and a BMFA
+  Article-16 authorisation may differ. Change it with `--gap`, e.g.
+  `python3 analysis/site_proximity.py --code <code> --gap 150 --print`.
+
 ## Reproducing the analysis
 
 Pure Python 3, no dependencies to install.
@@ -70,6 +84,8 @@ everything in `outputs/`.
 | `analysis/osgb.py` | Converts the survey's OS grid references to WGS84 lat/long for map links. |
 | `analysis/fetch_satellite.py` | Downloads & annotates a satellite view per shortlisted site. Needs `requests` + `Pillow` (`pip install -r requirements.txt`). |
 | `analysis/members.py` | Member-travel report for a site (geocoding + driving times). Needs `requests`. |
+| `analysis/site_proximity.py` | Housing-proximity screen + annotated map (OpenStreetMap buildings). Needs `requests` + `Pillow`. |
+| `analysis/basemap.py` | Shared satellite-tile fetching and lat/lon↔pixel maths. |
 | `analysis/issue_body.py` | Assembles a site issue's full Markdown body (single source of truth). |
 
 ### How the score works

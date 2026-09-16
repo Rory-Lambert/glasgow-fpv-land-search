@@ -7,6 +7,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+CODES="8445387 NL008491903 NL008491906 2829 1560 8410235 6153"
+
+echo "Generating housing-proximity images..."
+for c in $CODES; do python3 analysis/site_proximity.py --code "$c" >/dev/null; done
+git add outputs/proximity
+git commit -q -m "Add/refresh housing-proximity images for shortlist" || echo "(images unchanged)"
+git push -q
+
 ./scripts/refresh_issue.sh 1 8445387       # Former Blaes Pitch, Cambuslang
 ./scripts/refresh_issue.sh 2 NL008491903   # Former Recreation Ground, Glenmavis
 ./scripts/refresh_issue.sh 3 NL008491906   # Wheatholme Park North, Airdrie

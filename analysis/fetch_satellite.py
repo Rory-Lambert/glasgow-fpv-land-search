@@ -1,40 +1,28 @@
 #!/usr/bin/env python3
-"""Fetch a satellite view for each shortlisted site.
+"""Fetch an annotated satellite view for each shortlisted site.
 
-Stitches free Esri World Imagery map tiles (no API key required) into one image
-per site, centred on the site centroid, with a crosshair marker, a scale bar and
-a caption. Saves to ../outputs/satellite/.
+Centred on the site centroid, with a crosshair marker, a scale bar and a caption.
+Saves to ../outputs/satellite/. Tile fetching and pixel maths live in basemap.py.
 
 Usage:
   python3 analysis/fetch_satellite.py                 # (re)build the 7 shortlist images
   python3 analysis/fetch_satellite.py --code <CODE>   # build ONE image for a site by
-                                                      # its SVDLS site_code, looked up in
-                                                      # outputs/all_scored_sites.csv.
-                                                      # Prints the saved path (used by
-                                                      # scripts/elevate_site.sh).
+                                                      # its SVDLS site_code (from the
+                                                      # scored CSV). Prints the saved
+                                                      # path (used by elevate_site.sh).
 
-Imagery © Esri, Maxar, Earthstar Geographics and the GIS User Community.
-Used here under Esri's terms for non-commercial display with attribution.
+Imagery © Esri, Maxar, Earthstar Geographics.
 """
 
 import argparse
 import csv
-import io
-import math
 import os
-import time
 
-import requests
-from PIL import Image, ImageDraw, ImageFont
+from basemap import Basemap, font, ATTRIB
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "outputs", "satellite")
 SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
-
-TILE_URL = ("https://server.arcgisonline.com/ArcGIS/rest/services/"
-            "World_Imagery/MapServer/tile/{z}/{y}/{x}")
-HEADERS = {"User-Agent": "glasgow-fpv-land-search/1.0 (site scouting; contact via GitHub)"}
-ATTRIB = "Imagery (c) Esri, Maxar, Earthstar Geographics"
 
 ZOOM = 17          # ~0.7 m/px at this latitude -> ~670 m across a 1000 px frame
 SIZE = 1000        # output width/height in pixels
@@ -51,43 +39,10 @@ SITES = [
 ]
 
 
-def latlon_to_pixel(lat, lon, z):
-    """Global Web-Mercator pixel coordinates (256 px tiles)."""
-    s = math.sin(math.radians(lat))
-    x = (lon + 180.0) / 360.0 * 256 * 2 ** z
-    y = (0.5 - math.log((1 + s) / (1 - s)) / (4 * math.pi)) * 256 * 2 ** z
-    return x, y
-
-
-def ground_res(lat, z):
-    """Metres per pixel at this latitude and zoom."""
-    return 156543.03392 * math.cos(math.radians(lat)) / (2 ** z)
-
-
-def font(size):
-    for path in ("/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
-                 "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"):
-        if os.path.exists(path):
-            return ImageFont.truetype(path, size)
-    return ImageFont.load_default()
-
-
 def build_image(name, lat, lon):
-    cx, cy = latlon_to_pixel(lat, lon, ZOOM)
-    left, top = cx - SIZE / 2, cy - SIZE / 2
-    canvas = Image.new("RGB", (SIZE, SIZE))
-
-    tx0, tx1 = int(left // 256), int((left + SIZE) // 256)
-    ty0, ty1 = int(top // 256), int((top + SIZE) // 256)
-    for tx in range(tx0, tx1 + 1):
-        for ty in range(ty0, ty1 + 1):
-            url = TILE_URL.format(z=ZOOM, x=tx, y=ty)
-            r = requests.get(url, headers=HEADERS, timeout=30)
-            r.raise_for_status()
-            tile = Image.open(io.BytesIO(r.content)).convert("RGB")
-            canvas.paste(tile, (int(tx * 256 - left), int(ty * 256 - top)))
-            time.sleep(0.05)  # be polite to the tile server
-
+    bm = Basemap(lat, lon, ZOOM, SIZE)
+    canvas = bm.image
+    from PIL import ImageDraw
     draw = ImageDraw.Draw(canvas)
     mid = SIZE // 2
 
@@ -99,8 +54,7 @@ def build_image(name, lat, lon):
     draw.ellipse([mid - 4, mid - 4, mid + 4, mid + 4], outline=(255, 60, 60), width=2)
 
     # Scale bar (100 m)
-    mpp = ground_res(lat, ZOOM)
-    bar_px = int(100 / mpp)
+    bar_px = int(bm.m2px(100))
     bx, by = 20, SIZE - 30
     draw.rectangle([bx - 6, by - 20, bx + bar_px + 6, by + 12], fill=(0, 0, 0))
     draw.line([(bx, by), (bx + bar_px, by)], fill=(255, 255, 255), width=3)
@@ -121,7 +75,6 @@ def build_image(name, lat, lon):
     w = draw.textlength(ATTRIB, font=f_small)
     draw.rectangle([SIZE - w - 12, SIZE - 20, SIZE, SIZE], fill=(0, 0, 0))
     draw.text((SIZE - w - 6, SIZE - 18), ATTRIB, fill=(220, 220, 220), font=f_small)
-
     return canvas
 
 
@@ -163,7 +116,6 @@ def main():
     if args.code:
         name, lat, lon = lookup_by_code(args.code)
         path = render(args.code, name, lat, lon, f"{args.code}_{_nameslug(name)}.jpg")
-        # Print ONLY the repo-relative path on the last line, for scripts to capture.
         print(os.path.relpath(path, os.path.join(HERE, "..")))
         return
 

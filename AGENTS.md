@@ -13,18 +13,20 @@ hand-roll the steps:
 ```
 
 Find the `site_code` in `outputs/all_scored_sites.csv` or `REPORT.md`. The script
-reads the site's details, generates its satellite view, commits and **pushes** the
-image, then opens a labelled issue embedding it. It refuses to create a duplicate
-if an issue already references that code.
+reads the site's details, generates its satellite view and housing-proximity map,
+commits and **pushes** both images, then opens a labelled issue embedding them. It
+refuses to create a duplicate if an issue already references that code.
 
 The ordering matters and is why this is a script, not a checklist: an issue
-embeds its image by **raw GitHub URL**, which only resolves after the image is
-pushed. Creating the issue first gives a broken image. `elevate_site.sh` pushes
+embeds its images by **raw GitHub URL**, which only resolves after they are
+pushed. Creating the issue first gives broken images. `elevate_site.sh` pushes
 before it references. If you must debug the pieces, they are `analysis/fetch_satellite.py --code <code>`
-(image) and `analysis/issue_body.py --code <code>` (body) — but reach for the script first.
+(satellite), `analysis/site_proximity.py --code <code>` (housing map), and
+`analysis/issue_body.py --code <code>` (body) — but reach for the script first.
 
 `analysis/issue_body.py` is the **single source of truth** for what an issue
-contains: site details, the council's Community Asset Transfer contact (from
+contains: site details, the housing-proximity screen (from OpenStreetMap, via
+`site_proximity.py`), the council's Community Asset Transfer contact (from
 `data/council_contacts.md`), and the member-travel report (from `data/members.md`).
 Edit the body there, not in the bash scripts.
 

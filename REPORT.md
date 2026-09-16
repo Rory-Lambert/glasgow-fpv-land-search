@@ -37,7 +37,7 @@ Imagery © Esri, Maxar, Earthstar Geographics.*
 ### 1. Former Blaes Pitch, Westburn Road, Cambuslang ⭐
 - **Council:** South Lanarkshire · **Size:** 1.25 ha · **Score:** +13 · **Avg member distance:** 16.0 km
 - **Why:** A former ash football pitch — literally pitch-shaped and sized. Former "Recreation & Leisure" use with no firm development timescale, clear of both airport zones. Joint-top on score and the strongest all-rounder: high site quality and central to the members.
-- **Watch for:** Confirm it hasn't been re-earmarked; check road access and any residential frontage on Westburn Road.
+- **Watch for:** **Housing on the SW side** — the proximity screen puts the nearest homes ~11 m from the (approximate) edge, inside a 50 m separation line. This may constrain the usable flight line or need permissions; check it early. Also confirm it hasn't been re-earmarked, and check road access. See the housing screen on [issue #1](../../issues/1).
 - **Map:** https://www.google.com/maps/search/?api=1&query=55.820998,-4.151503 · *(site code 8445387)*
 
 ### 2. Former Recreation Ground, MacArthur Avenue, Glenmavis

@@ -40,13 +40,14 @@ if gh issue list --state all --search "$CODE in:body" --json number -q '.[].numb
   exit 1
 fi
 
-# 2. Generate the satellite image (prints the repo-relative path on its last line).
+# 2. Generate the satellite view and the housing-proximity image.
 IMG_REL=$(python3 analysis/fetch_satellite.py --code "$CODE" | tail -n1)
-echo "Image: $IMG_REL"
+PROX_REL=$(python3 analysis/site_proximity.py --code "$CODE" | tail -n1)
+echo "Images: $IMG_REL, $PROX_REL"
 
-# 3. Commit & push so the raw URL resolves before the issue references it.
-git add "$IMG_REL"
-git commit -q -m "Add satellite view for site $CODE ($NAME)"
+# 3. Commit & push so the raw URLs resolve before the issue references them.
+git add "$IMG_REL" "$PROX_REL"
+git commit -q -m "Add satellite + proximity views for site $CODE ($NAME)"
 git push -q
 
 # 4. Build the raw image URL from the actual repo + default branch.
