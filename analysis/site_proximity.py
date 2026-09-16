@@ -25,6 +25,7 @@ import argparse
 import csv
 import math
 import os
+import time
 
 import requests
 from PIL import ImageDraw
@@ -35,7 +36,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "outputs", "proximity")
 SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 
-OVERPASS = "https://overpass-api.de/api/interpreter"
+# Public Overpass endpoints — tried in order, with retries, as they get busy.
+OVERPASS_ENDPOINTS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://lz4.overpass-api.de/api/interpreter",
+]
 HEADERS = {"User-Agent": "glasgow-fpv-land-search/1.0 (site scouting)"}
 
 REQUIRED_GAP_M = 50   # default; see the module docstring — confirm with BMFA/CAA
@@ -104,8 +110,18 @@ def fetch_buildings(lat, lon, radius_m):
     q = (f"[out:json][timeout:40];"
          f'(way["building"](around:{radius_m},{lat},{lon});'
          f'relation["building"](around:{radius_m},{lat},{lon}););out geom tags;')
-    r = requests.post(OVERPASS, data={"data": q}, headers=HEADERS, timeout=90)
-    r.raise_for_status()
+    last = None
+    for attempt in range(4):
+        endpoint = OVERPASS_ENDPOINTS[attempt % len(OVERPASS_ENDPOINTS)]
+        try:
+            r = requests.post(endpoint, data={"data": q}, headers=HEADERS, timeout=90)
+            r.raise_for_status()
+            break
+        except requests.RequestException as e:
+            last = e
+            time.sleep(3 * (attempt + 1))  # back off; the public servers get busy
+    else:
+        raise RuntimeError(f"Overpass unavailable after retries: {last}")
     out = []
     for e in r.json().get("elements", []):
         geom = e.get("geometry")
