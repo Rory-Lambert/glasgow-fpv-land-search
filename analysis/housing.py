@@ -36,8 +36,8 @@ SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 SCREEN = os.path.join(HERE, "..", "outputs", "housing_screen.json")
 
 MARGIN_M = 175   # measure homes out to edge + this (covers a later 150 m threshold)
-BATCH = 25       # sites per Overpass query — keeps the whole sweep to ~12 requests
-DELAY_S = 3.0    # gap between batch requests; gentle on the public servers
+BATCH = 12       # sites per Overpass query — small enough to keep responses light
+DELAY_S = 4.0    # gap between batch requests; gentle on the public servers
 
 
 def haversine_m(a, b):
@@ -49,17 +49,26 @@ def haversine_m(a, b):
     return R * 2 * math.asin(math.sqrt(x))
 
 
+# Overpass regex of residential building= values (mirrors RESIDENTIAL) — filtering
+# in the query keeps responses small and fast.
+_RES_RE = "^(" + "|".join(sorted(RESIDENTIAL)) + ")$"
+
+
 def fetch_buildings_batch(sites):
     """One Overpass query for many sites. `sites` = list of (lat, lon, radius_m).
     Returns residential building polygons as (lat, lon) vertex lists."""
-    clauses = "".join(f'way["building"](around:{r},{lat},{lon});'
+    clauses = "".join(f'way["building"~"{_RES_RE}"](around:{r},{lat},{lon});'
                       for lat, lon, r in sites)
-    q = f"[out:json][timeout:150];({clauses});out geom tags;"
+    q = f"[out:json][timeout:40];({clauses});out geom tags;"
+    # lz4 has been the responsive mirror; try it first. Short timeout so a hung
+    # endpoint fails fast (45 s) instead of stalling the whole batch.
+    endpoints = ["https://lz4.overpass-api.de/api/interpreter"] + \
+                [e for e in OVERPASS_ENDPOINTS if "lz4" not in e]
     last = None
-    for attempt in range(4):
-        endpoint = OVERPASS_ENDPOINTS[attempt % len(OVERPASS_ENDPOINTS)]
+    for attempt in range(5):
+        endpoint = endpoints[attempt % len(endpoints)]
         try:
-            r = requests.post(endpoint, data={"data": q}, headers=HEADERS, timeout=180)
+            r = requests.post(endpoint, data={"data": q}, headers=HEADERS, timeout=45)
             r.raise_for_status()
             homes = []
             for e in r.json().get("elements", []):
@@ -121,7 +130,7 @@ def _screen_site(r, homes):
              "n_homes": n, "radius_m": int(radius)})
 
 
-def build(refresh=False):
+def build(refresh=False, max_batches=None):
     with open(SCORED, newline="") as f:
         rows = [r for r in csv.DictReader(f) if r["lat"] and r["lon"]]
 
@@ -129,8 +138,11 @@ def build(refresh=False):
     todo = [r for r in rows if r["site_code"] not in screen
             or "error" in screen[r["site_code"]]]
     n_batches = (len(todo) + BATCH - 1) // BATCH
+    if max_batches:
+        n_batches = min(n_batches, max_batches)
+        todo = todo[:n_batches * BATCH]     # bound this run so it exits cleanly
     print(f"{len(rows)} candidates; {len(todo)} to screen in {n_batches} batch(es) "
-          f"({len(rows) - len(todo)} cached).")
+          f"({len(rows) - len(todo)} not touched this run).")
 
     for bi in range(n_batches):
         batch = todo[bi * BATCH:(bi + 1) * BATCH]
@@ -158,6 +170,7 @@ def main():
     ap = argparse.ArgumentParser(description="Screen candidate sites for nearby homes.")
     ap.add_argument("--build", action="store_true", help="screen all candidates -> JSON")
     ap.add_argument("--refresh", action="store_true", help="re-screen even cached sites")
+    ap.add_argument("--max-batches", type=int, help="cap batches this run (for clean short runs)")
     ap.add_argument("--code", help="screen just one site by SVDLS code and print it")
     args = ap.parse_args()
 
@@ -169,7 +182,7 @@ def main():
         dist, n, radius = nearest_home_m(float(r["lat"]), float(r["lon"]), float(r["size_ha"]))
         print(f"{args.code}: nearest home {dist} m (searched {radius} m, {n} homes)")
     elif args.build:
-        build(refresh=args.refresh)
+        build(refresh=args.refresh, max_batches=args.max_batches)
     else:
         ap.error("give --build or --code")
 

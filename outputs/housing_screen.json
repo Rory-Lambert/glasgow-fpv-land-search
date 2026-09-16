@@ -1,51 +1,203 @@
 {
+"1138": {
+"n_homes": 2,
+"nearest_home_m": 150.1,
+"radius_m": 215
+},
+"1473": {
+"n_homes": 3,
+"nearest_home_m": 41.3,
+"radius_m": 228
+},
+"1535": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 231
+},
 "1560": {
 "n_homes": 117,
 "nearest_home_m": 0.1,
 "radius_m": 219
 },
 "1673": {
+"n_homes": 253,
+"nearest_home_m": 0.0,
+"radius_m": 224
+},
+"1683": {
+"n_homes": 146,
+"nearest_home_m": 0.3,
+"radius_m": 248
+},
+"1812": {
 "error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"1833": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"1918": {
+"n_homes": 9,
+"nearest_home_m": 9.4,
+"radius_m": 238
+},
+"2014": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 243
+},
+"2045": {
+"n_homes": 7,
+"nearest_home_m": 53.0,
+"radius_m": 233
+},
+"2069": {
+"n_homes": 1,
+"nearest_home_m": 151.4,
+"radius_m": 211
+},
+"2106": {
+"n_homes": 89,
+"nearest_home_m": 1.9,
+"radius_m": 251
+},
+"2230": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"2309": {
+"n_homes": 99,
+"nearest_home_m": 11.6,
+"radius_m": 223
 },
 "2331": {
 "n_homes": 56,
 "nearest_home_m": 37.7,
 "radius_m": 228
 },
+"2422": {
+"n_homes": 6,
+"nearest_home_m": 82.2,
+"radius_m": 240
+},
+"2440": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 222
+},
+"2446": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 245
+},
 "2545": {
 "n_homes": 3,
 "nearest_home_m": 17.9,
 "radius_m": 221
+},
+"2592": {
+"n_homes": 16,
+"nearest_home_m": 37.3,
+"radius_m": 208
+},
+"2627": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 238
+},
+"2680": {
+"n_homes": 4,
+"nearest_home_m": 147.8,
+"radius_m": 252
 },
 "2744": {
 "n_homes": 2,
 "nearest_home_m": 167.3,
 "radius_m": 233
 },
+"2761": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 253
+},
+"2802": {
+"n_homes": 38,
+"nearest_home_m": 33.1,
+"radius_m": 212
+},
 "2829": {
 "n_homes": 60,
 "nearest_home_m": 47.2,
 "radius_m": 226
+},
+"2834": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 214
+},
+"2871": {
+"n_homes": 13,
+"nearest_home_m": 31.5,
+"radius_m": 209
+},
+"2880": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 211
 },
 "2883": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 234
 },
+"2913": {
+"n_homes": 96,
+"nearest_home_m": 6.9,
+"radius_m": 229
+},
 "2914": {
 "n_homes": 8,
 "nearest_home_m": 117.6,
 "radius_m": 239
+},
+"2915": {
+"n_homes": 90,
+"nearest_home_m": 3.8,
+"radius_m": 245
 },
 "2948": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 221
 },
+"295": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"2969": {
+"n_homes": 41,
+"nearest_home_m": 25.9,
+"radius_m": 252
+},
+"3025": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 234
+},
+"3026": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 219
+},
+"3027": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 215
+},
 "306": {
 "n_homes": 35,
 "nearest_home_m": 123.9,
 "radius_m": 233
+},
+"3071": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
 },
 "309": {
 "n_homes": 108,
@@ -53,7 +205,32 @@
 "radius_m": 219
 },
 "3106": {
-"error": "Overpass unavailable after retries: 429 Client Error: Too Many Requests for url: https://overpass-api.de/api/interpreter"
+"n_homes": 70,
+"nearest_home_m": 0.0,
+"radius_m": 208
+},
+"3107": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3112": {
+"n_homes": 14,
+"nearest_home_m": 72.1,
+"radius_m": 214
+},
+"3122": {
+"n_homes": 20,
+"nearest_home_m": 57.4,
+"radius_m": 232
+},
+"3127": {
+"n_homes": 2,
+"nearest_home_m": 144.6,
+"radius_m": 207
+},
+"3138": {
+"n_homes": 100,
+"nearest_home_m": 0.1,
+"radius_m": 231
 },
 "3185": {
 "n_homes": 177,
@@ -61,10 +238,32 @@
 "radius_m": 245
 },
 "3188": {
+"n_homes": 5,
+"nearest_home_m": 167.2,
+"radius_m": 229
+},
+"3216": {
+"n_homes": 96,
+"nearest_home_m": 1.8,
+"radius_m": 216
+},
+"3232": {
 "error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
 },
+"3243": {
+"n_homes": 246,
+"nearest_home_m": 0.1,
+"radius_m": 247
+},
+"3284": {
+"n_homes": 5,
+"nearest_home_m": 135.4,
+"radius_m": 227
+},
 "3289": {
-"error": "Overpass unavailable after retries: 429 Client Error: Too Many Requests for url: https://overpass-api.de/api/interpreter"
+"n_homes": 70,
+"nearest_home_m": 3.0,
+"radius_m": 230
 },
 "3363": {
 "n_homes": 6,
@@ -76,56 +275,855 @@
 "nearest_home_m": 5.5,
 "radius_m": 249
 },
+"3449": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 207
+},
+"3479": {
+"n_homes": 74,
+"nearest_home_m": 36.0,
+"radius_m": 213
+},
+"3484": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3486": {
+"n_homes": 41,
+"nearest_home_m": 53.5,
+"radius_m": 208
+},
 "3495": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 218
 },
+"350678": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 214
+},
+"350720": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 257
+},
+"350721": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 230
+},
 "350723": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 222
+},
+"350770": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 211
+},
+"350779": {
+"n_homes": 54,
+"nearest_home_m": 44.7,
+"radius_m": 231
+},
+"350788": {
+"n_homes": 46,
+"nearest_home_m": 12.5,
+"radius_m": 221
+},
+"350796": {
+"n_homes": 93,
+"nearest_home_m": 44.9,
+"radius_m": 217
+},
+"350799": {
+"n_homes": 174,
+"nearest_home_m": 0.0,
+"radius_m": 212
+},
+"350816": {
 "error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"350824": {
+"n_homes": 193,
+"nearest_home_m": 0.2,
+"radius_m": 238
+},
+"350825": {
+"n_homes": 147,
+"nearest_home_m": 0.0,
+"radius_m": 238
+},
+"350883": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 215
+},
+"350884": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 211
+},
+"350891": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 240
+},
+"350908": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 230
+},
+"3522": {
+"n_homes": 63,
+"nearest_home_m": 17.9,
+"radius_m": 223
 },
 "3527": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 219
 },
+"3530": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 247
+},
+"3532": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 230
+},
+"3539": {
+"n_homes": 117,
+"nearest_home_m": 0.5,
+"radius_m": 249
+},
+"3548": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 211
+},
+"3559": {
+"n_homes": 194,
+"nearest_home_m": 0.2,
+"radius_m": 237
+},
+"356": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3560": {
+"n_homes": 141,
+"nearest_home_m": 85.8,
+"radius_m": 232
+},
+"3562": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3563": {
+"n_homes": 157,
+"nearest_home_m": 0.6,
+"radius_m": 230
+},
+"3584": {
+"n_homes": 2,
+"nearest_home_m": 65.3,
+"radius_m": 217
+},
+"3596": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 223
+},
+"3607": {
+"n_homes": 107,
+"nearest_home_m": 2.5,
+"radius_m": 221
+},
+"3611": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3618": {
+"n_homes": 22,
+"nearest_home_m": 14.2,
+"radius_m": 213
+},
+"3632": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
 "3658": {
 "n_homes": 99,
 "nearest_home_m": 5.8,
 "radius_m": 240
 },
-"3789": {
+"3659": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 213
+},
+"3660": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 215
+},
+"3662": {
 "error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3666": {
+"n_homes": 29,
+"nearest_home_m": 107.6,
+"radius_m": 222
+},
+"3692": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3698": {
+"n_homes": 121,
+"nearest_home_m": 1.6,
+"radius_m": 232
+},
+"3740": {
+"n_homes": 20,
+"nearest_home_m": 2.3,
+"radius_m": 212
+},
+"3781": {
+"n_homes": 3,
+"nearest_home_m": 154.4,
+"radius_m": 208
+},
+"3783": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3789": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 222
+},
+"3807": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3815": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3820": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3822": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3853": {
+"n_homes": 23,
+"nearest_home_m": 0.3,
+"radius_m": 213
+},
+"3858": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3901": {
+"n_homes": 12,
+"nearest_home_m": 107.3,
+"radius_m": 236
 },
 "3910": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 233
 },
+"3939": {
+"n_homes": 7,
+"nearest_home_m": 93.7,
+"radius_m": 215
+},
+"3959": {
+"n_homes": 25,
+"nearest_home_m": 32.7,
+"radius_m": 223
+},
+"3971": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3972": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"3974": {
+"n_homes": 10,
+"nearest_home_m": 26.2,
+"radius_m": 238
+},
+"3975": {
+"n_homes": 45,
+"nearest_home_m": 27.0,
+"radius_m": 238
+},
+"3976": {
+"n_homes": 11,
+"nearest_home_m": 202.5,
+"radius_m": 243
+},
 "3977": {
 "n_homes": 231,
 "nearest_home_m": 0.7,
 "radius_m": 237
+},
+"3995": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 211
+},
+"4001": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 258
+},
+"4002": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 214
+},
+"4006": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4035": {
+"n_homes": 16,
+"nearest_home_m": 10.3,
+"radius_m": 214
 },
 "4045": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 243
 },
+"4052": {
+"n_homes": 33,
+"nearest_home_m": 0.3,
+"radius_m": 211
+},
+"4060": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4064": {
+"n_homes": 23,
+"nearest_home_m": 105.1,
+"radius_m": 229
+},
+"4094": {
+"n_homes": 85,
+"nearest_home_m": 1.0,
+"radius_m": 220
+},
+"4095": {
+"n_homes": 217,
+"nearest_home_m": 0.0,
+"radius_m": 236
+},
+"4099": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 210
+},
+"4110": {
+"n_homes": 83,
+"nearest_home_m": 2.2,
+"radius_m": 207
+},
+"4124": {
+"n_homes": 228,
+"nearest_home_m": 0.1,
+"radius_m": 226
+},
+"4127": {
+"n_homes": 66,
+"nearest_home_m": 0.8,
+"radius_m": 223
+},
+"4132": {
+"n_homes": 23,
+"nearest_home_m": 1.3,
+"radius_m": 215
+},
+"4171": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4172": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4174": {
+"n_homes": 65,
+"nearest_home_m": 45.5,
+"radius_m": 220
+},
+"4191": {
+"n_homes": 14,
+"nearest_home_m": 48.2,
+"radius_m": 221
+},
+"4192": {
+"n_homes": 103,
+"nearest_home_m": 70.6,
+"radius_m": 227
+},
+"4284": {
+"n_homes": 16,
+"nearest_home_m": 6.5,
+"radius_m": 240
+},
+"4291": {
+"n_homes": 11,
+"nearest_home_m": 2.1,
+"radius_m": 230
+},
+"4312": {
+"n_homes": 65,
+"nearest_home_m": 63.9,
+"radius_m": 223
+},
+"4321": {
+"n_homes": 4,
+"nearest_home_m": 117.5,
+"radius_m": 220
+},
+"4333": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4336": {
+"n_homes": 93,
+"nearest_home_m": 21.8,
+"radius_m": 228
+},
+"4337": {
+"n_homes": 2,
+"nearest_home_m": 82.3,
+"radius_m": 207
+},
+"4339": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4345": {
+"n_homes": 41,
+"nearest_home_m": 41.6,
+"radius_m": 221
+},
+"4354": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 216
+},
+"4355": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4362": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"4382": {
+"n_homes": 137,
+"nearest_home_m": 4.5,
+"radius_m": 232
+},
+"4384": {
+"n_homes": 10,
+"nearest_home_m": 21.6,
+"radius_m": 216
+},
+"4388": {
+"n_homes": 36,
+"nearest_home_m": 86.3,
+"radius_m": 212
+},
+"4389": {
+"n_homes": 50,
+"nearest_home_m": 0.1,
+"radius_m": 220
+},
+"4492": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 258
+},
+"4493": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 217
+},
+"4495": {
+"n_homes": 57,
+"nearest_home_m": 0.0,
+"radius_m": 239
+},
+"4503": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
 "502": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 223
+},
+"505": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 243
+},
+"554": {
+"n_homes": 14,
+"nearest_home_m": 109.0,
+"radius_m": 246
+},
+"592": {
+"n_homes": 11,
+"nearest_home_m": 95.6,
+"radius_m": 237
+},
+"6132": {
+"n_homes": 60,
+"nearest_home_m": 1.3,
+"radius_m": 219
+},
+"6153": {
+"n_homes": 196,
+"nearest_home_m": 0.0,
+"radius_m": 237
+},
+"6155": {
+"n_homes": 2,
+"nearest_home_m": 1.3,
+"radius_m": 226
+},
+"616": {
+"n_homes": 57,
+"nearest_home_m": 70.9,
+"radius_m": 238
+},
+"6175": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"627": {
+"n_homes": 5,
+"nearest_home_m": 59.2,
+"radius_m": 213
+},
+"628": {
+"n_homes": 5,
+"nearest_home_m": 82.4,
+"radius_m": 214
+},
+"659": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"67": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8.BR1": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 235
+},
+"812": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8360102": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8360257": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8360297": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8360306": {
+"n_homes": 40,
+"nearest_home_m": 1.8,
+"radius_m": 242
+},
+"8360307": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8375221": {
+"n_homes": 91,
+"nearest_home_m": 0.7,
+"radius_m": 216
+},
+"8375294": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8375386": {
+"n_homes": 94,
+"nearest_home_m": 0.2,
+"radius_m": 222
+},
+"8410078": {
+"n_homes": 17,
+"nearest_home_m": 70.7,
+"radius_m": 245
+},
+"8410201": {
+"n_homes": 18,
+"nearest_home_m": 2.6,
+"radius_m": 218
+},
+"8410235": {
+"n_homes": 9,
+"nearest_home_m": 169.0,
+"radius_m": 245
+},
+"8410332": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8410348": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8410373": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 235
+},
+"8425315": {
+"n_homes": 8,
+"nearest_home_m": 134.7,
+"radius_m": 220
+},
+"8425391": {
+"n_homes": 32,
+"nearest_home_m": 59.9,
+"radius_m": 220
+},
+"8425392": {
+"n_homes": 81,
+"nearest_home_m": 1.1,
+"radius_m": 254
+},
+"8445212": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 233
+},
+"8445243": {
+"n_homes": 8,
+"nearest_home_m": 100.2,
+"radius_m": 209
+},
+"8445298": {
+"n_homes": 133,
+"nearest_home_m": 0.6,
+"radius_m": 213
+},
+"8445348": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8445367": {
+"n_homes": 154,
+"nearest_home_m": 0.4,
+"radius_m": 256
 },
 "8445387": {
 "n_homes": 51,
 "nearest_home_m": 11.4,
 "radius_m": 230
 },
+"8445388": {
+"n_homes": 3,
+"nearest_home_m": 83.5,
+"radius_m": 217
+},
+"8450007": {
+"n_homes": 50,
+"nearest_home_m": 90.6,
+"radius_m": 219
+},
+"8455214": {
+"n_homes": 122,
+"nearest_home_m": 0.1,
+"radius_m": 230
+},
+"8455314": {
+"n_homes": 46,
+"nearest_home_m": 2.5,
+"radius_m": 207
+},
+"8460011": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460014": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460049": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460131": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460222": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460349": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 219
+},
+"8460350": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 224
+},
+"8460482": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460512": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8460514": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
 "850": {
 "n_homes": 0,
 "nearest_home_m": null,
 "radius_m": 220
+},
+"8510453": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 219
+},
+"8510505": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8510559": {
+"n_homes": 80,
+"nearest_home_m": 22.4,
+"radius_m": 225
+},
+"8510560": {
+"n_homes": 40,
+"nearest_home_m": 30.5,
+"radius_m": 207
+},
+"8510561": {
+"n_homes": 93,
+"nearest_home_m": 0.3,
+"radius_m": 244
+},
+"8510609": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 214
+},
+"8510611": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 222
+},
+"8510629": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8511603": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 240
+},
+"8511613": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"8511691": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 229
+},
+"8511703": {
+"n_homes": 9,
+"nearest_home_m": 57.0,
+"radius_m": 214
+},
+"8511705": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008380172": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 230
+},
+"NL008381692": {
+"n_homes": 117,
+"nearest_home_m": 0.2,
+"radius_m": 257
+},
+"NL008381888": {
+"n_homes": 47,
+"nearest_home_m": 0.5,
+"radius_m": 236
+},
+"NL008382027": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008490437": {
+"n_homes": 123,
+"nearest_home_m": 0.8,
+"radius_m": 213
+},
+"NL008491142": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008491158": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 217
+},
+"NL008491197": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 228
+},
+"NL008491226": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008491234": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 209
+},
+"NL008491235": {
+"n_homes": 136,
+"nearest_home_m": 3.2,
+"radius_m": 232
+},
+"NL008491323": {
+"n_homes": 19,
+"nearest_home_m": 93.8,
+"radius_m": 259
+},
+"NL008491324": {
+"n_homes": 19,
+"nearest_home_m": 30.3,
+"radius_m": 212
+},
+"NL008491395": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008491636": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 207
+},
+"NL008491645": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008491729": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008491870": {
+"n_homes": 92,
+"nearest_home_m": 14.2,
+"radius_m": 217
+},
+"NL008491871": {
+"n_homes": 5,
+"nearest_home_m": 98.9,
+"radius_m": 237
+},
+"NL008491901": {
+"n_homes": 134,
+"nearest_home_m": 16.3,
+"radius_m": 226
 },
 "NL008491903": {
 "n_homes": 142,
@@ -136,5 +1134,160 @@
 "n_homes": 104,
 "nearest_home_m": 1.3,
 "radius_m": 217
+},
+"NL008491908": {
+"n_homes": 16,
+"nearest_home_m": 137.9,
+"radius_m": 212
+},
+"NL008491959": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008491966": {
+"n_homes": 29,
+"nearest_home_m": 4.6,
+"radius_m": 260
+},
+"NL008491977": {
+"n_homes": 1,
+"nearest_home_m": 39.6,
+"radius_m": 211
+},
+"NL008492020": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008492021": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008500176": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008500245": {
+"n_homes": 16,
+"nearest_home_m": 125.9,
+"radius_m": 211
+},
+"NL008500567": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 232
+},
+"NL008500706": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 225
+},
+"NL008500758": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501381": {
+"n_homes": 57,
+"nearest_home_m": 2.3,
+"radius_m": 228
+},
+"NL008501382": {
+"n_homes": 85,
+"nearest_home_m": 1.1,
+"radius_m": 215
+},
+"NL008501410": {
+"n_homes": 70,
+"nearest_home_m": 0.8,
+"radius_m": 210
+},
+"NL008501415": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501454": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501502": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501521": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501593": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 220
+},
+"NL008501599": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501614": {
+"n_homes": 88,
+"nearest_home_m": 6.3,
+"radius_m": 213
+},
+"NL008501682": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501785": {
+"n_homes": 43,
+"nearest_home_m": 105.8,
+"radius_m": 237
+},
+"NL008501834": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501835": {
+"n_homes": 61,
+"nearest_home_m": 43.6,
+"radius_m": 238
+},
+"NL008501840": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008501846": {
+"n_homes": 27,
+"nearest_home_m": 0.9,
+"radius_m": 221
+},
+"NL008501860": {
+"n_homes": 0,
+"nearest_home_m": null,
+"radius_m": 228
+},
+"NL008501918": {
+"n_homes": 50,
+"nearest_home_m": 16.0,
+"radius_m": 225
+},
+"NL008502015": {
+"n_homes": 124,
+"nearest_home_m": 0.4,
+"radius_m": 222
+},
+"NL008502017": {
+"n_homes": 153,
+"nearest_home_m": 0.7,
+"radius_m": 226
+},
+"NL008502024": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008502025": {
+"n_homes": 31,
+"nearest_home_m": 6.5,
+"radius_m": 217
+},
+"NL008502029": {
+"n_homes": 46,
+"nearest_home_m": 2.3,
+"radius_m": 248
+},
+"NL008502033": {
+"n_homes": 77,
+"nearest_home_m": 2.0,
+"radius_m": 242
+},
+"NL008502035": {
+"error": "Overpass unavailable after retries: HTTPSConnectionPool(host='overpass-api.de', port=443): Max retries exceeded with url"
+},
+"NL008521816": {
+"n_homes": 135,
+"nearest_home_m": 0.1,
+"radius_m": 207
 }
 }
