@@ -1,4 +1,4 @@
-*Excludes airport FRZ sites and any with a home within 50 m (omitted: 103 on housing).*
+*Excludes airport FRZ sites and any with a home within 50 m (omitted: 134 on housing).*
 
 | Rank | Score | Site | Council | Size (ha) | Type | Dev. potential | Former use | Avg member km | Nearest home | Map |
 |---|---|---|---|---|---|---|---|---|---|---|

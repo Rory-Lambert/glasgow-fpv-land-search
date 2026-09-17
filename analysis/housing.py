@@ -36,8 +36,8 @@ SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 SCREEN = os.path.join(HERE, "..", "outputs", "housing_screen.json")
 
 MARGIN_M = 175   # measure homes out to edge + this (covers a later 150 m threshold)
-BATCH = 12       # sites per Overpass query — small enough to keep responses light
-DELAY_S = 4.0    # gap between batch requests; gentle on the public servers
+BATCH = 6        # sites per Overpass query — small enough to keep responses light
+DELAY_S = 6.0    # gap between batch requests; gentle on the public servers
 
 
 def haversine_m(a, b):
