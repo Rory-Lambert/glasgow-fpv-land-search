@@ -12,16 +12,54 @@ Usage:
 
 import argparse
 import csv
+import glob
+import json
 import os
 import re
 
 import members          # build_report() — member-travel section
-import site_proximity   # assess() — housing-proximity section
 from basemap import raw_base
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCORED = os.path.join(HERE, "..", "outputs", "all_scored_sites.csv")
 CONTACTS_MD = os.path.join(HERE, "..", "data", "council_contacts.md")
+SCREEN = os.path.join(HERE, "..", "outputs", "housing_screen.json")
+PROX_DIR = os.path.join(HERE, "..", "outputs", "proximity")
+HOUSING_GAP_M = 50
+
+
+def housing_section(code):
+    """Housing-proximity block, built from the cached screen (offline)."""
+    lines = ["### Housing proximity (CAA/BMFA separation)", "",
+             f"Nearest home to the site's approximate edge (OpenStreetMap footprints). "
+             f"Required gap: **{HOUSING_GAP_M} m** — *confirm with BMFA/CAA; the standard "
+             f"A3 distance from residential areas is 150 m.*"]
+    try:
+        with open(SCREEN) as f:
+            entry = json.load(f).get(code)
+    except (FileNotFoundError, json.JSONDecodeError):
+        entry = None
+
+    if not entry or "error" in entry:
+        lines.append("- Not yet screened — run `python3 analysis/housing.py --build`.")
+    else:
+        d = entry.get("nearest_home_m")
+        if d is None:
+            lines.append(f"- **No home within {entry.get('radius_m', 175)} m** of the site — comfortably clear.")
+        elif d < HOUSING_GAP_M:
+            lines.append(f"- **Nearest home ~{d} m — within the {HOUSING_GAP_M} m gap; "
+                         f"fails the separation rule as it stands.**")
+        else:
+            lines.append(f"- **Nearest home ~{d} m — clear of the {HOUSING_GAP_M} m gap.**")
+
+    base = raw_base()
+    imgs = glob.glob(os.path.join(PROX_DIR, f"{code}_*.jpg"))
+    if base and imgs:
+        rel = os.path.relpath(imgs[0], os.path.join(HERE, ".."))
+        lines.append(f"\n![Housing proximity]({base}/{rel})\n"
+                     "*Yellow = approx site extent (from area, not a surveyed boundary) · "
+                     "orange = separation line · red = homes · imagery © Esri, buildings © OpenStreetMap.*")
+    return "\n".join(lines)
 
 
 def site_row(code):
@@ -63,22 +101,7 @@ def build(code, image_url=None):
                        "likely unflyable. Confirm before pursuing.**")
     parts.append("\n".join(details))
 
-    # Housing-proximity screen (needs OpenStreetMap via Overpass — degrade gracefully).
-    try:
-        res = site_proximity.assess(code, make_image=False)
-        block = res["markdown"]
-        base = raw_base()
-        rel = os.path.relpath(res["image"], os.path.join(HERE, ".."))
-        if base and os.path.exists(res["image"]):
-            block += (f"\n\n![Housing proximity]({base}/{rel})\n"
-                      "*Yellow = approx site extent (from area, not a surveyed boundary) · "
-                      "orange = separation line · red = homes · "
-                      "imagery © Esri, buildings © OpenStreetMap.*")
-        parts.append(block)
-    except Exception as e:  # network/Overpass hiccup shouldn't block issue creation
-        parts.append(f"### Housing proximity (CAA/BMFA separation)\n\n"
-                     f"_Screen unavailable ({e}). Re-run `analysis/site_proximity.py "
-                     f"--code {code}`._")
+    parts.append(housing_section(code))
 
     url, contact = council_contact(r["council"])
     if url:
